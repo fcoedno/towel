@@ -17,10 +17,21 @@ class ImporterTest extends TestCase
     /**
      * @test
      */
-    public function test_import_ValidPeopleXml_ShouldReturnACollectionOfPerson()
+    public function import_ValidPeopleXml_ShouldReturnACollectionOfPerson()
     {
         $importer = new XmlImporter();
         $people = $importer->import(file_get_contents(__DIR__ . '/people.xml'));
         $this->assertContainsOnlyInstancesOf(Person::class, $people);
+        return $people;
+    }
+
+    /**
+     * @test
+     * @depends import_ValidPeopleXml_ShouldReturnACollectionOfPerson
+     * @param array $people
+     */
+    public function import_ValidPeopleXmlGiven_ShouldReturnACollectionWithTheSamePersonQuantity(array $people)
+    {
+        $this->assertCount(3, $people);
     }
 }

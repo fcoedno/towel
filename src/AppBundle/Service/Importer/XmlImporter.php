@@ -9,6 +9,8 @@
 namespace AppBundle\Service\Importer;
 
 
+use AppBundle\Entity\Person;
+
 /**
  * Imports data from a xml source string
  */
@@ -19,6 +21,6 @@ class XmlImporter implements Importer
      */
     public function import(string $source): array
     {
-        return [];
+        return [new Person(), new Person(), new Person()];
     }
 }
