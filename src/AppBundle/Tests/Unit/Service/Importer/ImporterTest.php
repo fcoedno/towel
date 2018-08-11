@@ -12,15 +12,46 @@ use AppBundle\Entity\Person;
 use AppBundle\Service\Importer\XmlImporter;
 use PHPUnit\Framework\TestCase;
 
+use \Mockery as m;
+
 class ImporterTest extends TestCase
 {
+    /**
+     * @var XmlImporter
+     */
+    private $importer;
+
+    protected function setUp()
+    {
+        $people = [
+            (new XmlImporter\Dto\Person())
+                ->setPersonid(1)
+                ->setPersonname('Name 1')
+                ->setPhones([]),
+            (new XmlImporter\Dto\Person())
+                ->setPersonid(2)
+                ->setPersonname('Name 2')
+                ->setPhones([]),
+            (new XmlImporter\Dto\Person())
+                ->setPersonid(3)
+                ->setPersonname('Name 3')
+                ->setPhones([])
+        ];
+
+        $extractor = m::mock(XmlImporter\Extractor::class)
+            ->shouldReceive('extractPeople')
+            ->andReturn($people)
+            ->getMock()
+        ;
+        $this->importer = new XmlImporter($extractor);
+    }
+
     /**
      * @test
      */
     public function import_ValidPeopleXml_ShouldReturnACollectionOfPerson()
     {
-        $importer = new XmlImporter();
-        $people = $importer->import(file_get_contents(__DIR__ . '/people.xml'));
+        $people = $this->importer->import(file_get_contents(__DIR__ . '/people.xml'));
         $this->assertContainsOnlyInstancesOf(Person::class, $people);
         return $people;
     }

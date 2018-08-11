@@ -10,6 +10,7 @@ namespace AppBundle\Service\Importer;
 
 
 use AppBundle\Entity\Person;
+use AppBundle\Service\Importer\XmlImporter\Extractor;
 
 /**
  * Imports data from a xml source string
@@ -17,10 +18,25 @@ use AppBundle\Entity\Person;
 class XmlImporter implements Importer
 {
     /**
+     * @var Extractor
+     */
+    private $extractor;
+
+    public function __construct(Extractor $extractor)
+    {
+        $this->extractor = $extractor;
+    }
+
+    /**
      * @inheritdoc
      */
     public function import(string $source): array
     {
-        return [new Person(1, 'Name 1'), new Person(2, 'Name 2'), new Person(3, 'Name 3')];
+        $people = $this->extractor->extractPeople($source);
+        $data = [];
+        foreach ($people as $person) {
+            $data[] = new Person($person->getPersonid(), $person->getPersonname());
+        }
+        return $data;
     }
 }
