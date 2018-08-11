@@ -1,14 +1,14 @@
 version: '2'
 services:
   dbtest:
-    image: mariadb:latest
+    image: mariadb:5
     volumes:
     - dbtest_data:/var/lib/mysql
     environment:
     - MYSQL_DATABASE=toweltest
     - MYSQL_ROOT_PASSWORD=root
   database:
-    image: mariadb:latest
+    image: mariadb:5
     volumes:
     - database_data:/var/lib/mysql
     ports:
