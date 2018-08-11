@@ -8,6 +8,8 @@
 
 namespace AppBundle\Tests\Unit\Service\Importer;
 
+use AppBundle\Entity\Person;
+use AppBundle\Service\Importer\XmlImporter;
 use PHPUnit\Framework\TestCase;
 
 class ImporterTest extends TestCase
@@ -17,6 +19,8 @@ class ImporterTest extends TestCase
      */
     public function test_import_ValidPeopleXml_ShouldReturnACollectionOfPerson()
     {
-        $this->assertTrue(true);
+        $importer = new XmlImporter();
+        $people = $importer->import(file_get_contents(__DIR__ . '/people.xml'));
+        $this->assertContainsOnlyInstancesOf(Person::class, $people);
     }
 }
