@@ -16,7 +16,7 @@ class Version20180811151423 extends AbstractMigration
     public function up(Schema $schema)
     {
         $this->addSql('
-            CREATE TABLE towel.person (
+            CREATE TABLE person (
                 id BIGINT NOT NULL AUTO_INCREMENT,
                 name varchar(255) NOT NULL,
                 CONSTRAINT person_PK PRIMARY KEY (id)
@@ -32,6 +32,6 @@ class Version20180811151423 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-        $this->addSql('DROP TABLE towel.person;');
+        $this->addSql('DROP TABLE person;');
     }
 }
