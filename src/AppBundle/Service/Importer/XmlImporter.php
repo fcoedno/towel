@@ -21,6 +21,6 @@ class XmlImporter implements Importer
      */
     public function import(string $source): array
     {
-        return [new Person(), new Person(), new Person()];
+        return [new Person(1, 'Name 1'), new Person(2, 'Name 2'), new Person(3, 'Name 3')];
     }
 }
