@@ -24,7 +24,7 @@ class Version20180811153429 extends AbstractMigration
             city varchar(100) NOT NULL,
             country varchar(100) NOT NULL,
             CONSTRAINT shipping_address_PK PRIMARY KEY (id),
-            CONSTRAINT shipping_address_person_FK FOREIGN KEY (person_id) REFERENCES towel.person(id)
+            CONSTRAINT shipping_address_person_FK FOREIGN KEY (person_id) REFERENCES person(id)
         )
         ENGINE=InnoDB
         DEFAULT CHARSET=utf8

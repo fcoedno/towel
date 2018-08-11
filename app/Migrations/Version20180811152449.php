@@ -21,7 +21,7 @@ class Version20180811152449 extends AbstractMigration
             person_id BIGINT NOT NULL,
             phone varchar(20) NOT NULL,
             CONSTRAINT person_phone_PK PRIMARY KEY (id),
-            CONSTRAINT person_phone_person_FK FOREIGN KEY (person_id) REFERENCES towel.person(id)
+            CONSTRAINT person_phone_person_FK FOREIGN KEY (person_id) REFERENCES person(id)
         )
         ENGINE=InnoDB
         DEFAULT CHARSET=utf8

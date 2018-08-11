@@ -21,8 +21,8 @@ class Version20180811154100 extends AbstractMigration
             person_id BIGINT NOT NULL,
             shipping_address_id BIGINT NOT NULL,
             CONSTRAINT order_PK PRIMARY KEY (id),
-            CONSTRAINT order_person_FK FOREIGN KEY (person_id) REFERENCES towel.person(id),
-            CONSTRAINT order_shipping_address_FK FOREIGN KEY (shipping_address_id) REFERENCES towel.shipping_address(id)
+            CONSTRAINT order_person_FK FOREIGN KEY (person_id) REFERENCES person(id),
+            CONSTRAINT order_shipping_address_FK FOREIGN KEY (shipping_address_id) REFERENCES shipping_address(id)
         )
         ENGINE=InnoDB
         DEFAULT CHARSET=utf8
