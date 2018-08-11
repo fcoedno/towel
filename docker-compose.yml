@@ -19,7 +19,6 @@ services:
   php:
     image: fcoedno/php:7.1-fpm-symfony-dev
     volumes:
-      - /etc/passwd:/etc/passwd:ro
       - ./:/code
       - composercache:/.composer
     working_dir: /code
