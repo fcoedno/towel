@@ -35,7 +35,7 @@ class XmlImporter implements Importer
         $people = $this->extractor->extractPeople($source);
         $data = [];
         foreach ($people as $person) {
-            $data[] = new Person($person->getPersonid(), $person->getPersonname());
+            $data[] = new Person($person->getPersonid(), $person->getPersonname(), $person->getPhones());
         }
         return $data;
     }

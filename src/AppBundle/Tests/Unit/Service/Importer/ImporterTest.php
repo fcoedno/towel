@@ -27,15 +27,15 @@ class ImporterTest extends TestCase
             (new XmlImporter\Dto\Person())
                 ->setPersonid(1)
                 ->setPersonname('Name 1')
-                ->setPhones([]),
+                ->setPhones(['2345678']),
             (new XmlImporter\Dto\Person())
                 ->setPersonid(2)
                 ->setPersonname('Name 2')
-                ->setPhones([]),
+                ->setPhones(['4444444']),
             (new XmlImporter\Dto\Person())
                 ->setPersonid(3)
                 ->setPersonname('Name 3')
-                ->setPhones([])
+                ->setPhones(['7777777'])
         ];
 
         $extractor = m::mock(XmlImporter\Extractor::class)
@@ -75,11 +75,14 @@ class ImporterTest extends TestCase
     {
         $this->assertEquals(1, $people[0]->getId());
         $this->assertEquals('Name 1', $people[0]->getName());
+        $this->assertEquals('2345678', $people[0]->getPhones()->first()->getNumber());
 
         $this->assertEquals(2, $people[1]->getId());
         $this->assertEquals('Name 2', $people[1]->getName());
+        $this->assertEquals('4444444', $people[1]->getPhones()->first()->getNumber());
 
         $this->assertEquals(3, $people[2]->getId());
         $this->assertEquals('Name 3', $people[2]->getName());
+        $this->assertEquals('7777777', $people[2]->getPhones()->first()->getNumber());
     }
 }
