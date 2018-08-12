@@ -4,6 +4,12 @@ parameters:
     #parameter_name: value
 
 services:
+  service.importer.xml_importer.person_importer:
+    class: AppBundle\Service\Importer\XmlImporter\PersonImporter
+    autowire: true
+  service.importer.xml_importer.order_importer:
+    class: AppBundle\Service\Importer\XmlImporter\OrderImporter
+    autowire: true
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']

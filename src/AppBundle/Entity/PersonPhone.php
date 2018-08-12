@@ -15,9 +15,9 @@ class PersonPhone
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=20, nullable=false)
+     * @ORM\Column(name="number", type="string", length=20, nullable=false)
      */
-    private $phone;
+    private $number;
 
     /**
      * @var integer
@@ -31,13 +31,39 @@ class PersonPhone
     /**
      * @var \AppBundle\Entity\Person
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="person_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person", inversedBy="phones")
+     * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
     private $person;
 
+    public function __construct(Person $person, string $number)
+    {
+        $this->person = $person;
+        $this->number = $number;
+    }
 
+    /**
+     * @return string
+     */
+    public function getNumber(): string
+    {
+        return $this->number;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Person
+     */
+    public function getPerson(): Person
+    {
+        return $this->person;
+    }
 }
 

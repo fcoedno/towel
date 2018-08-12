@@ -9,16 +9,15 @@
 >
     <php>
         <ini name="error_reporting" value="-1" />
-        <!--
-            <server name="KERNEL_DIR" value="/path/to/your/app/" />
-        -->
+        <server name="KERNEL_DIR" value="./" />
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>../src/*/*Bundle/Tests</directory>
-            <directory>../src/*/Bundle/*Bundle/Tests</directory>
-            <directory>../src/*Bundle/Tests</directory>
+        <testsuite name="unit">
+            <directory>../src/AppBundle/Tests/Unit</directory>
+        </testsuite>
+        <testsuite name="functional">
+            <directory>../src/AppBundle/Tests/Functional</directory>
         </testsuite>
     </testsuites>
 

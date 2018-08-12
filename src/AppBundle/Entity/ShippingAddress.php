@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ShippingAddress
  *
- * @ORM\Table(name="shipping_address", indexes={@ORM\Index(name="shipping_address_person_FK", columns={"person_id"})})
+ * @ORM\Table(name="shipping_address")
  * @ORM\Entity
  */
 class ShippingAddress
@@ -50,15 +50,62 @@ class ShippingAddress
     private $id;
 
     /**
-     * @var \AppBundle\Entity\Person
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="person_id", referencedColumnName="id")
-     * })
+     * ShippingAddress constructor.
+     * @param string $name
+     * @param string $address
+     * @param string $city
+     * @param string $country
      */
-    private $person;
+    public function __construct(
+        string $name,
+        string $address,
+        string $city,
+        string $country
+    ) {
+        $this->name = $name;
+        $this->address = $address;
+        $this->city = $city;
+        $this->country = $country;
+    }
 
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
+    /**
+     * @return string
+     */
+    public function getAddress(): string
+    {
+        return $this->address;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry(): string
+    {
+        return $this->country;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
 }
 
