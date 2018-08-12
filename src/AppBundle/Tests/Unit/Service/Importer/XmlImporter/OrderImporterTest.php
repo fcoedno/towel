@@ -23,9 +23,15 @@ use \Mockery as m;
 class OrderImporterTest extends TestCase
 {
     /**
-     * @test
+     * @var InMemoryOrderRepository
      */
-    public function import_ValidXmlGiven_ShouldPersistTheSameOrderQuantity()
+    private $orderRepository;
+    /**
+     * @var OrderImporter
+     */
+    private $importer;
+
+    protected function setUp()
     {
         $extractor = m::mock(Extractor::class)
             ->shouldReceive('extractShipOrders')
@@ -55,10 +61,29 @@ class OrderImporterTest extends TestCase
             ->andReturn(new Person(1, 'Name 1'))
             ->getMock()
         ;
-        $orderRepository = new InMemoryOrderRepository();
-        $orderImporter = new OrderImporter($extractor, $personRepository, $orderRepository);
-        $orderImporter->import(file_get_contents(__DIR__ . '/../../../../Resources/shiporders_simple.xml'));
-        $orders = $orderRepository->findAll();
+        $this->orderRepository = $this->makeRepository();
+        $this->importer = new OrderImporter($extractor, $personRepository, $this->orderRepository);
+    }
+
+    /**
+     * @test
+     */
+    public function import_ValidXmlGiven_ShouldPersistTheSameOrderQuantity()
+    {
+        $this->importer->import(file_get_contents(__DIR__ . '/../../../../Resources/shiporders_simple.xml'));
+        $orders = $this->orderRepository->findAll();
         $this->assertCount(1, $orders);
+    }
+
+    /**
+     * @return InMemoryOrderRepository
+     */
+    private function makeRepository()
+    {
+        static $repository = null;
+        if (is_null($repository)) {
+            $repository = new InMemoryOrderRepository();
+        }
+        return $repository;
     }
 }
