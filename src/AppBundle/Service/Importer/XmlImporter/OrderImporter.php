@@ -14,6 +14,7 @@ use AppBundle\Entity\Person;
 use AppBundle\Entity\ShippingAddress;
 use AppBundle\Repository\Contract\OrderRepository;
 use AppBundle\Repository\Contract\PersonRepository;
+use AppBundle\Service\Extractor\Dto\Item;
 use AppBundle\Service\Extractor\Dto\ShipOrder;
 use AppBundle\Service\Extractor\Extractor;
 use AppBundle\Service\Importer\XmlImporter;
@@ -57,9 +58,25 @@ class OrderImporter extends XmlImporter
      */
     private function importOrder(ShipOrder $shipOrder)
     {
-        $person = new Person(1, 'Name 1');
-        $addr = new ShippingAddress();
-        $order = new Order(1, $person, $addr);
+        $person = $this->personRepository->find($shipOrder->getOrderperson());
+        $addr = new ShippingAddress(
+            $shipOrder->getShipto()->getName(),
+            $shipOrder->getShipto()->getAddress(),
+            $shipOrder->getShipto()->getCity(),
+            $shipOrder->getShipto()->getCountry()
+        );
+        $order = new Order($shipOrder->getOrderid(), $person, $addr);
+
+        /** @var Item $item */
+        foreach ($shipOrder->getItems() as $item) {
+            $order->addItem(
+                $item->getTitle(),
+                $item->getNote(),
+                $item->getQuantity(),
+                $item->getPrice()
+            );
+        }
+
         $this->orderRepository->save($order);
     }
 }

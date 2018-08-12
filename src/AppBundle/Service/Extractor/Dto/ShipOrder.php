@@ -72,7 +72,7 @@ class ShipOrder
     }
 
     /**
-     * @return mixed
+     * @return ShipTo
      */
     public function getShipto()
     {

@@ -9,6 +9,7 @@
 namespace AppBundle\Tests\Unit\Service\Importer\XmlImporter;
 
 
+use AppBundle\Entity\OrderItem;
 use AppBundle\Entity\Person;
 use AppBundle\Repository\Contract\PersonRepository;
 use AppBundle\Service\Extractor\Dto\Item;
@@ -73,6 +74,31 @@ class OrderImporterTest extends TestCase
         $this->importer->import(file_get_contents(__DIR__ . '/../../../../Resources/shiporders_simple.xml'));
         $orders = $this->orderRepository->findAll();
         $this->assertCount(1, $orders);
+    }
+
+    /**
+     * @test
+     */
+    public function import_ValidXmlGiven_ShouldPersistTheCorrectOrder()
+    {
+        $order = $this->orderRepository->find(1);
+        $address = $order->getShippingAddress();
+
+        $this->assertEquals(1, $order->getId());
+        $this->assertEquals(1, $order->getPerson()->getId());
+        $this->assertEquals('Name 1', $address->getName());
+        $this->assertEquals('Address 1', $address->getAddress());
+        $this->assertEquals('City 1', $address->getCity());
+        $this->assertEquals('Country 1', $address->getCountry());
+
+        $this->assertCount(1, $order->getItems());
+
+        /** @var OrderItem $item */
+        $item = $order->getItems()->first();
+        $this->assertEquals('Title 1', $item->getTitle());
+        $this->assertEquals('Note 1', $item->getNote());
+        $this->assertEquals(745, $item->getQuantity());
+        $this->assertEquals(123.45, $item->getPrice());
     }
 
     /**

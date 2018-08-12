@@ -13,6 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class OrderItem
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
@@ -41,24 +50,109 @@ class OrderItem
     private $price;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
      * @var \AppBundle\Entity\Order
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Order")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="order_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Order", inversedBy="items")
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
      */
     private $order;
 
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     * @return OrderItem
+     */
+    public function setTitle(string $title): OrderItem
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNote(): string
+    {
+        return $this->note;
+    }
+
+    /**
+     * @param string $note
+     * @return OrderItem
+     */
+    public function setNote(string $note): OrderItem
+    {
+        $this->note = $note;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param int $quantity
+     * @return OrderItem
+     */
+    public function setQuantity(int $quantity): OrderItem
+    {
+        $this->quantity = $quantity;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param float $price
+     * @return OrderItem
+     */
+    public function setPrice(float $price): OrderItem
+    {
+        $this->price = $price;
+        return $this;
+    }
+
+    /**
+     * @return Order
+     */
+    public function getOrder(): Order
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param Order $order
+     * @return OrderItem
+     */
+    public function setOrder(Order $order): OrderItem
+    {
+        $this->order = $order;
+        return $this;
+    }
 }
 

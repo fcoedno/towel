@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +42,12 @@ class Order
     private $shippingAddress;
 
     /**
+     * @var Collection|OrderItem[]
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OrderItem", mappedBy="order", cascade={"persist", "remove"})
+     */
+    private $items;
+
+    /**
      * Order constructor.
      *
      * @param int $id
@@ -51,6 +59,7 @@ class Order
         $this->id = $id;
         $this->person = $person;
         $this->shippingAddress = $shippingAddress;
+        $this->items = new ArrayCollection();
     }
 
     /**
@@ -75,6 +84,38 @@ class Order
     public function getShippingAddress(): ShippingAddress
     {
         return $this->shippingAddress;
+    }
+
+    /**
+     * @return OrderItem[]|Collection
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * Adds an item to the order
+     *
+     * @param string $title
+     * @param string $note
+     * @param int $quantity
+     * @param float $price
+     */
+    public function addItem(
+        string $title,
+        string $note,
+        int $quantity,
+        float $price
+    ) {
+        $item = (new OrderItem())
+            ->setTitle($title)
+            ->setNote($note)
+            ->setQuantity($quantity)
+            ->setPrice($price)
+            ->setOrder($this)
+        ;
+        $this->items->add($item);
     }
 }
 
