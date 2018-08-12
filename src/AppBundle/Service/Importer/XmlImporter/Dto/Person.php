@@ -9,13 +9,28 @@
 namespace AppBundle\Service\Importer\XmlImporter\Dto;
 
 
+use JMS\Serializer\Annotation as Serializer;
+
 /**
  * DTO For person import
  */
 class Person
 {
+    /**
+     * @var integer
+     * @Serializer\Type(name="integer")
+     */
     private $personid;
+    /**
+     * @var string
+     * @Serializer\Type(name="string")
+     */
     private $personname;
+    /**
+     * @var array $phones
+     * @Serializer\Type(name="array<string>")
+     * @Serializer\XmlList(entry="phone")
+     */
     private $phones = [];
 
     /**

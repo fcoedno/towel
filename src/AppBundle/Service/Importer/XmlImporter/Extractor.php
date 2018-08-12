@@ -9,7 +9,9 @@
 namespace AppBundle\Service\Importer\XmlImporter;
 
 
+use AppBundle\Service\Importer\XmlImporter\Dto\PersonCollection;
 use AppBundle\Service\Importer\XmlImporter\Dto\Person;
+use JMS\Serializer\SerializerBuilder;
 
 class Extractor
 {
@@ -21,5 +23,8 @@ class Extractor
      */
     public function extractPeople(string $xml): array
     {
+        $serializer = SerializerBuilder::create()->build();
+        $collection = $serializer->deserialize($xml, PersonCollection::class, 'xml');
+        return $collection->getPeople();
     }
 }
