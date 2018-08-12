@@ -27,14 +27,11 @@ abstract class XmlImporter implements Importer
      * Imports from source
      *
      * @param string $source
-     * @return array
      */
-    public function import(string $source): array
+    public function import(string $source)
     {
         if (! is_null($this->importer)) {
-            return $this->importer->import($source);
+            $this->importer->import($source);
         }
-
-        return [];
     }
 }

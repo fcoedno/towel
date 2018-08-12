@@ -19,5 +19,5 @@ interface Importer
      * @param $source
      * @return array
      */
-    public function import(string $source): array;
+    public function import(string $source);
 }

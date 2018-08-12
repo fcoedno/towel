@@ -11,6 +11,7 @@ namespace AppBundle\Repository\Contract;
 
 use AppBundle\Entity\Person;
 use AppBundle\Repository\Exception\PersonNotFoundException;
+use Doctrine\Common\Collections\Collection;
 
 interface PersonRepository
 {
@@ -30,4 +31,11 @@ interface PersonRepository
      * @throws PersonNotFoundException In case the person was not found
      */
     public function find(int $id): Person;
+
+    /**
+     * Returns all person
+     *
+     * @return Collection|Person[]
+     */
+    public function findAll(): Collection;
 }

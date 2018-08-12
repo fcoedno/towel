@@ -9,6 +9,7 @@
 namespace AppBundle\Service\Importer\XmlImporter;
 
 
+use AppBundle\Repository\Contract\PersonRepository;
 use AppBundle\Service\Extractor\Extractor;
 use AppBundle\Service\Importer\XmlImporter;
 use AppBundle\Entity\Person;
@@ -19,22 +20,26 @@ class PersonImporter extends XmlImporter
      * @var Extractor
      */
     private $extractor;
+    /**
+     * @var PersonRepository
+     */
+    private $repository;
 
-    public function __construct(Extractor $extractor)
+    public function __construct(Extractor $extractor, PersonRepository $repository)
     {
         $this->extractor = $extractor;
+        $this->repository = $repository;
     }
 
     /**
      * @inheritdoc
      */
-    public function import(string $source): array
+    public function import(string $source)
     {
         $people = $this->extractor->extractPeople($source);
-        $data = [];
         foreach ($people as $person) {
-            $data[] = new Person($person->getPersonid(), $person->getPersonname(), $person->getPhones());
+            $person = new Person($person->getPersonid(), $person->getPersonname(), $person->getPhones());
+            $this->repository->save($person);
         }
-        return $data;
     }
 }

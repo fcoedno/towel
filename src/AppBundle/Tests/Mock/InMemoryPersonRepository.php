@@ -6,11 +6,14 @@
  * Time: 14:14
  */
 
-namespace AppBundle\Repository;
+namespace AppBundle\Tests\Mock;
 
 use AppBundle\Entity\Person;
 use AppBundle\Repository\Contract\PersonRepository;
 use AppBundle\Repository\Exception\PersonNotFoundException;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class InMemoryPersonRepository implements PersonRepository
 {
@@ -34,5 +37,13 @@ class InMemoryPersonRepository implements PersonRepository
         }
 
         throw new PersonNotFoundException();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findAll(): Collection
+    {
+        return new ArrayCollection($this->people);
     }
 }
