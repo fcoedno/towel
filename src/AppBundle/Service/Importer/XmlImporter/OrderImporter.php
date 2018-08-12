@@ -49,8 +49,13 @@ class OrderImporter extends XmlImporter
      */
     public function import(string $source)
     {
-        $shipOrders = $this->extractor->extractShipOrders($source);
-        array_walk($shipOrders, [$this, 'importOrder']);
+        if ('shiporders' === simplexml_load_string($source)->getName()) {
+            $shipOrders = $this->extractor->extractShipOrders($source);
+            array_walk($shipOrders, [$this, 'importOrder']);
+            return;
+        }
+
+        parent::import($source);
     }
 
     /**

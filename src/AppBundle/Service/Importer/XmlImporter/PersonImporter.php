@@ -36,10 +36,15 @@ class PersonImporter extends XmlImporter
      */
     public function import(string $source)
     {
-        $people = $this->extractor->extractPeople($source);
-        foreach ($people as $person) {
-            $person = new Person($person->getPersonid(), $person->getPersonname(), $person->getPhones());
-            $this->repository->save($person);
+        if ('people' === simplexml_load_string($source)->getName()) {
+            $people = $this->extractor->extractPeople($source);
+            foreach ($people as $person) {
+                $person = new Person($person->getPersonid(), $person->getPersonname(), $person->getPhones());
+                $this->repository->save($person);
+            }
+            return;
         }
+
+        parent::import($source);
     }
 }
