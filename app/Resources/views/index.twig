@@ -1,4 +1,5 @@
 {% extends 'base.twig' %}
+{% import 'macros/flash.twig' as flash %}
 
 {% block stylesheet %}
     {{ parent() }}
@@ -37,14 +38,17 @@
         <div class="page-header">
             <h1>Towel</h1>
         </div>
-        <input id="xml" type="file" class="file" name="xml"
-               data-preview-file-type="text"
-               data-upload-label="Proccess"
-               data-upload-title="Proccess selected XML files"
-               data-allowed-file-types="xml"
-               accept=".xml"
-               multiple
-        >
+        {{ flash.handle() }}
+        <form action="{{ path('proccess_xml') }}" method="POST" enctype="multipart/form-data">
+            <input id="xml" type="file" class="file" name="xml_files[]"
+                   data-preview-file-type="text"
+                   data-upload-label="Proccess"
+                   data-upload-title="Proccess selected XML files"
+                   data-allowed-file-types="xml"
+                   accept=".xml"
+                   multiple
+            >
+        </form>
     </div>
 {% endblock %}
 
