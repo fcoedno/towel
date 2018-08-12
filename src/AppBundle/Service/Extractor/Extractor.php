@@ -11,6 +11,7 @@ namespace AppBundle\Service\Extractor;
 
 use AppBundle\Service\Extractor\Dto\Person;
 use AppBundle\Service\Extractor\Dto\PersonCollection;
+use AppBundle\Service\Extractor\Dto\ShipOrderCollection;
 use JMS\Serializer\SerializerBuilder;
 
 class Extractor
@@ -26,5 +27,18 @@ class Extractor
         $serializer = SerializerBuilder::create()->build();
         $collection = $serializer->deserialize($xml, PersonCollection::class, 'xml');
         return $collection->getPeople();
+    }
+
+    /**
+     * Extract ship orders from a xml string
+     *
+     * @param string $xml
+     * @return array
+     */
+    public function extractShipOrders(string $xml): array
+    {
+        $serializer = SerializerBuilder::create()->build();
+        $collection = $serializer->deserialize($xml, ShipOrderCollection::class, 'xml');
+        return $collection->getShiporders();
     }
 }
