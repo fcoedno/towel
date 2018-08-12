@@ -1,0 +1,50 @@
+{% extends 'base.twig' %}
+
+{% block stylesheet %}
+    {{ parent() }}
+
+    <style>
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+        body {
+            /* Margin bottom by footer height */
+            margin-bottom: 60px;
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 60px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            width: auto;
+            max-width: 680px;
+            padding: 0 15px;
+        }
+        .container .text-muted {
+            margin: 20px 0;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="page-header">
+            <h1>Towel</h1>
+        </div>
+        <input id="xml" type="file" class="file" name="xml"
+               data-preview-file-type="text"
+               data-upload-label="Proccess"
+               data-upload-title="Proccess selected XML files"
+               data-allowed-file-types="xml"
+               accept=".xml"
+               multiple
+        >
+    </div>
+{% endblock %}
+
