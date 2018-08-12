@@ -6,7 +6,7 @@
  * Time: 20:23
  */
 
-namespace AppBundle\Service\Importer\XmlImporter\Dto;
+namespace AppBundle\Service\Extractor\Dto;
 
 
 use JMS\Serializer\Annotation as Serializer;

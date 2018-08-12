@@ -8,35 +8,33 @@
 
 namespace AppBundle\Service\Importer;
 
-
-use AppBundle\Entity\Person;
-use AppBundle\Service\Importer\XmlImporter\Extractor;
-
 /**
  * Imports data from a xml source string
  */
-class XmlImporter implements Importer
+abstract class XmlImporter implements Importer
 {
     /**
-     * @var Extractor
+     * @var XmlImporter
      */
-    private $extractor;
+    private $importer;
 
-    public function __construct(Extractor $extractor)
+    public function setNext(XmlImporter $importer)
     {
-        $this->extractor = $extractor;
+        $this->importer = $importer;
     }
 
     /**
-     * @inheritdoc
+     * Imports from source
+     *
+     * @param string $source
+     * @return array
      */
     public function import(string $source): array
     {
-        $people = $this->extractor->extractPeople($source);
-        $data = [];
-        foreach ($people as $person) {
-            $data[] = new Person($person->getPersonid(), $person->getPersonname(), $person->getPhones());
+        if (! is_null($this->importer)) {
+            return $this->importer->import($source);
         }
-        return $data;
+
+        return [];
     }
 }

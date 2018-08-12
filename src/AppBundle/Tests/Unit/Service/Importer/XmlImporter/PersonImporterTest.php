@@ -6,15 +6,17 @@
  * Time: 14:03
  */
 
-namespace AppBundle\Tests\Unit\Service\Importer;
+namespace AppBundle\Tests\Unit\Service\Importer\XmlImporter;
 
 use AppBundle\Entity\Person;
 use AppBundle\Service\Importer\XmlImporter;
 use PHPUnit\Framework\TestCase;
 
+use AppBundle\Service\Extractor\Dto\Person as PersonDto;
+
 use \Mockery as m;
 
-class ImporterTest extends TestCase
+class PersonImporterTest extends TestCase
 {
     /**
      * @var XmlImporter
@@ -24,26 +26,26 @@ class ImporterTest extends TestCase
     protected function setUp()
     {
         $people = [
-            (new XmlImporter\Dto\Person())
+            (new PersonDto())
                 ->setPersonid(1)
                 ->setPersonname('Name 1')
                 ->setPhones(['2345678']),
-            (new XmlImporter\Dto\Person())
+            (new PersonDto())
                 ->setPersonid(2)
                 ->setPersonname('Name 2')
                 ->setPhones(['4444444']),
-            (new XmlImporter\Dto\Person())
+            (new PersonDto())
                 ->setPersonid(3)
                 ->setPersonname('Name 3')
                 ->setPhones(['7777777'])
         ];
 
-        $extractor = m::mock(XmlImporter\Extractor::class)
+        $extractor = m::mock(\AppBundle\Service\Extractor\Extractor::class)
             ->shouldReceive('extractPeople')
             ->andReturn($people)
             ->getMock()
         ;
-        $this->importer = new XmlImporter($extractor);
+        $this->importer = new XmlImporter\PersonImporter($extractor);
     }
 
     /**
@@ -51,7 +53,7 @@ class ImporterTest extends TestCase
      */
     public function import_ValidPeopleXml_ShouldReturnACollectionOfPerson()
     {
-        $people = $this->importer->import(file_get_contents(__DIR__ . '/people.xml'));
+        $people = $this->importer->import(file_get_contents(__DIR__ . '/../../../../Resources/people.xml'));
         $this->assertContainsOnlyInstancesOf(Person::class, $people);
         return $people;
     }

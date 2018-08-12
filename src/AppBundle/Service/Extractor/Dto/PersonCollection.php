@@ -6,7 +6,7 @@
  * Time: 22:42
  */
 
-namespace AppBundle\Service\Importer\XmlImporter\Dto;
+namespace AppBundle\Service\Extractor\Dto;
 
 
 use JMS\Serializer\Annotation as Serializer;
@@ -18,7 +18,7 @@ class PersonCollection
 {
     /**
      * @var array|Person[]
-     * @Serializer\Type("array<AppBundle\Service\Importer\XmlImporter\Dto\Person>")
+     * @Serializer\Type("array<AppBundle\Service\Extractor\Dto\Person>")
      * @Serializer\XmlList(entry="person", inline=true)
      */
     private $people;

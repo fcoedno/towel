@@ -6,11 +6,11 @@
  * Time: 20:23
  */
 
-namespace AppBundle\Service\Importer\XmlImporter;
+namespace AppBundle\Service\Extractor;
 
 
-use AppBundle\Service\Importer\XmlImporter\Dto\PersonCollection;
-use AppBundle\Service\Importer\XmlImporter\Dto\Person;
+use AppBundle\Service\Extractor\Dto\Person;
+use AppBundle\Service\Extractor\Dto\PersonCollection;
 use JMS\Serializer\SerializerBuilder;
 
 class Extractor
