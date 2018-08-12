@@ -34,7 +34,7 @@ class Order
     /**
      * @var \AppBundle\Entity\ShippingAddress
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ShippingAddress")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\ShippingAddress")
      * @ORM\JoinColumn(name="shipping_address_id", referencedColumnName="id")
      */
     private $shippingAddress;

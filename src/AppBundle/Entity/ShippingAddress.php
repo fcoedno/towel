@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ShippingAddress
  *
- * @ORM\Table(name="shipping_address", indexes={@ORM\Index(name="shipping_address_person_FK", columns={"person_id"})})
+ * @ORM\Table(name="shipping_address")
  * @ORM\Entity
  */
 class ShippingAddress
@@ -48,17 +48,5 @@ class ShippingAddress
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var \AppBundle\Entity\Person
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="person_id", referencedColumnName="id")
-     * })
-     */
-    private $person;
-
-
 }
 
