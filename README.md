@@ -13,8 +13,7 @@ requirements, just execute the following steps:
  2. `docker-compose up -d` - Orchestrate the containers
  3. `docker-compose exec php composer install` - Installing dependencies
  4. `docker-compose exec php php app/console doctrine:migrations:migrate` - Configure the database
- 5. Add to your */etc/hosts* file an entry so that the *towel.localhost* host be pointed to your
- machine ip
+ 5. Add `127.0.0.1 towel.localhost` to your */etc/hosts* file
  6. Head over to http://towel.localhost and upload your xml files!
  
 To try out the api doc go to http://towel.localhost/api/doc.
