@@ -43,7 +43,7 @@ class Order
 
     /**
      * @var Collection|OrderItem[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OrderItem", mappedBy="order", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OrderItem", mappedBy="order", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $items;
 

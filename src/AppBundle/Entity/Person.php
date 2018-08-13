@@ -33,7 +33,7 @@ class Person
     /**
      * @var Collection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PersonPhone", mappedBy="person", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PersonPhone", mappedBy="person", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $phones;
 
