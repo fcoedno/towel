@@ -14,6 +14,7 @@ use AppBundle\Entity\Person;
 use AppBundle\Entity\ShippingAddress;
 use AppBundle\Repository\Contract\OrderRepository;
 use AppBundle\Repository\Contract\PersonRepository;
+use AppBundle\Repository\Exception\OrderNotFoundException;
 use AppBundle\Service\Extractor\Dto\Item;
 use AppBundle\Service\Extractor\Dto\ShipOrder;
 use AppBundle\Service\Extractor\Extractor;
@@ -63,16 +64,20 @@ class OrderImporter extends XmlImporter
      */
     private function importOrder(ShipOrder $shipOrder)
     {
+        $order = $this->getOrder($shipOrder->getOrderid());
         $person = $this->personRepository->find($shipOrder->getOrderperson());
-        $addr = new ShippingAddress(
-            $shipOrder->getShipto()->getName(),
-            $shipOrder->getShipto()->getAddress(),
-            $shipOrder->getShipto()->getCity(),
-            $shipOrder->getShipto()->getCountry()
-        );
-        $order = new Order($shipOrder->getOrderid(), $person, $addr);
+        $order->setPerson($person);
+        $address = $order->getShippingAddress() ?? new ShippingAddress();
+
+        $address->setName($shipOrder->getShipto()->getName());
+        $address->setAddress($shipOrder->getShipto()->getAddress());
+        $address->setCity($shipOrder->getShipto()->getCity());
+        $address->setCountry($shipOrder->getShipto()->getCountry());
+
+        $order->setShippingAddress($address);
 
         /** @var Item $item */
+        $order->getItems()->clear();
         foreach ($shipOrder->getItems() as $item) {
             $order->addItem(
                 $item->getTitle(),
@@ -83,5 +88,14 @@ class OrderImporter extends XmlImporter
         }
 
         $this->orderRepository->save($order);
+    }
+
+    private function getOrder($id)
+    {
+        try {
+            return $this->orderRepository->find($id);
+        } catch (OrderNotFoundException $exception) {
+            return (new Order())->setId($id);
+        }
     }
 }

@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Order
  *
- * @ORM\Table(name="order", indexes={@ORM\Index(name="order_person_FK", columns={"person_id"}), @ORM\Index(name="order_shipping_address_FK", columns={"shipping_address_id"})})
+ * @ORM\Table(name="`order`", indexes={@ORM\Index(name="order_person_FK", columns={"person_id"}), @ORM\Index(name="order_shipping_address_FK", columns={"shipping_address_id"})})
  * @ORM\Entity
  */
 class Order
@@ -36,7 +36,7 @@ class Order
     /**
      * @var \AppBundle\Entity\ShippingAddress
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\ShippingAddress")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\ShippingAddress", cascade={"persist"})
      * @ORM\JoinColumn(name="shipping_address_id", referencedColumnName="id")
      */
     private $shippingAddress;
@@ -49,17 +49,40 @@ class Order
 
     /**
      * Order constructor.
-     *
-     * @param int $id
-     * @param Person $person
-     * @param ShippingAddress $shippingAddress
      */
-    public function __construct(int $id, Person $person, ShippingAddress $shippingAddress)
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+    }
+
+    /**
+     * @param int $id
+     * @return Order
+     */
+    public function setId(int $id): Order
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @param Person $person
+     * @return Order
+     */
+    public function setPerson(Person $person): Order
+    {
         $this->person = $person;
+        return $this;
+    }
+
+    /**
+     * @param ShippingAddress $shippingAddress
+     * @return Order
+     */
+    public function setShippingAddress(ShippingAddress $shippingAddress): Order
+    {
         $this->shippingAddress = $shippingAddress;
-        $this->items = new ArrayCollection();
+        return $this;
     }
 
     /**
@@ -79,9 +102,9 @@ class Order
     }
 
     /**
-     * @return ShippingAddress
+     * @return ShippingAddress|null
      */
-    public function getShippingAddress(): ShippingAddress
+    public function getShippingAddress(): ?ShippingAddress
     {
         return $this->shippingAddress;
     }

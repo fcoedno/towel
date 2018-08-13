@@ -38,7 +38,7 @@ class DoctrineOrderRepository implements OrderRepository
      */
     public function save(Order $order)
     {
-        $this->em->merge($order);
+        $this->em->persist($order);
         $this->em->flush();
     }
 

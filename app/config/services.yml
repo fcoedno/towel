@@ -13,6 +13,9 @@ services:
     arguments: ['@doctrine.orm.entity_manager']
 
   # Service - Importer
+  service.file_importer.factory:
+    class: AppBundle\Service\FileImporter\Factory\XmlFileImporterFactory
+    autowire: true
   service.importer.xml_importer.person_importer:
     class: AppBundle\Service\Importer\XmlImporter\PersonImporter
     autowire: true

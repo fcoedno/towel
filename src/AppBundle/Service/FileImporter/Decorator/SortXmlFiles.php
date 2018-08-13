@@ -40,11 +40,11 @@ class SortXmlFiles extends FileImporterDecorator
         }
 
         if ('people' === $firstXml->getName()) {
-            return 1;
+            return -1;
         }
 
         if ('people' === $secondXml->getName()) {
-            return -1;
+            return 1;
         }
 
         return 0;

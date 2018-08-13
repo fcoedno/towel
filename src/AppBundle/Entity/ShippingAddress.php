@@ -50,22 +50,43 @@ class ShippingAddress
     private $id;
 
     /**
-     * ShippingAddress constructor.
      * @param string $name
-     * @param string $address
-     * @param string $city
-     * @param string $country
+     * @return ShippingAddress
      */
-    public function __construct(
-        string $name,
-        string $address,
-        string $city,
-        string $country
-    ) {
+    public function setName(string $name): ShippingAddress
+    {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @param string $address
+     * @return ShippingAddress
+     */
+    public function setAddress(string $address): ShippingAddress
+    {
         $this->address = $address;
+        return $this;
+    }
+
+    /**
+     * @param string $city
+     * @return ShippingAddress
+     */
+    public function setCity(string $city): ShippingAddress
+    {
         $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * @param string $country
+     * @return ShippingAddress
+     */
+    public function setCountry(string $country): ShippingAddress
+    {
         $this->country = $country;
+        return $this;
     }
 
     /**
