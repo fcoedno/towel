@@ -14,6 +14,7 @@ use JMS\Serializer\SerializerInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -47,8 +48,14 @@ class IndexAction
      */
     public function __invoke()
     {
-        $orders = $this->repository->findAll();
-        $data = $this->serializer->serialize($orders, 'json');
-        return new Response($data, 200, ['Content-Type' => 'application/json']);
+        try {
+            $orders = $this->repository->findAll();
+            $data = $this->serializer->serialize($orders, 'json');
+            return new Response($data, 200, ['Content-Type' => 'application/json']);
+        } catch (\Throwable $exception) {
+            return new JsonResponse([
+                'message' => 'Sorry, something went wrong :('
+            ], 500);
+        }
     }
 }

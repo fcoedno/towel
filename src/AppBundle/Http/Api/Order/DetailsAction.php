@@ -59,11 +59,11 @@ class DetailsAction
         } catch (OrderNotFoundException $exception) {
             return new JsonResponse([
                 'message' => 'The order was not found'
-            ]);
+            ], 404);
         } catch (\Throwable $exception) {
             return new JsonResponse([
                 'message' => 'Something went wrong, sorry!'
-            ]);
+            ], 500);
         }
     }
 }
