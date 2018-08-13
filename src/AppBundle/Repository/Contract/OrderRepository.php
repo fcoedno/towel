@@ -34,7 +34,7 @@ interface OrderRepository
     /**
      * Returns all orders
      *
-     * @return Collection
+     * @return array|Order[]
      */
-    public function findAll(): Collection;
+    public function findAll(): array;
 }

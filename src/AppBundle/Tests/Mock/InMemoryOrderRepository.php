@@ -45,8 +45,8 @@ class InMemoryOrderRepository implements OrderRepository
     /**
      * @inheritDoc
      */
-    public function findAll(): Collection
+    public function findAll(): array
     {
-        return new ArrayCollection($this->orders);
+        return $this->orders;
     }
 }

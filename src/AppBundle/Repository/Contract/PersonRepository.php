@@ -37,5 +37,5 @@ interface PersonRepository
      *
      * @return Collection|Person[]
      */
-    public function findAll(): Collection;
+    public function findAll(): array;
 }

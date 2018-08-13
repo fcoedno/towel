@@ -4,6 +4,15 @@ parameters:
     #parameter_name: value
 
 services:
+  # Repositories
+  repository.person_repository:
+    class: AppBundle\Repository\DoctrinePersonRepository
+    arguments: ['@doctrine.orm.entity_manager']
+  repository.order_repository:
+    class: AppBundle\Repository\DoctrineOrderRepository
+    arguments: ['@doctrine.orm.entity_manager']
+
+  # Service - Importer
   service.importer.xml_importer.person_importer:
     class: AppBundle\Service\Importer\XmlImporter\PersonImporter
     autowire: true

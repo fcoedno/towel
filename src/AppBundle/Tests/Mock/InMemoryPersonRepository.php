@@ -42,8 +42,8 @@ class InMemoryPersonRepository implements PersonRepository
     /**
      * @inheritDoc
      */
-    public function findAll(): Collection
+    public function findAll(): array
     {
-        return new ArrayCollection($this->people);
+        return $this->people;
     }
 }
