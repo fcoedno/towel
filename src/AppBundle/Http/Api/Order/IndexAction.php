@@ -38,7 +38,7 @@ class IndexAction
     }
 
     /**
-     * @Route("/api/orders")
+     * @Route("/api/orders", name="api.orders.index")
      * @Method("GET")
      *
      * @ApiDoc(

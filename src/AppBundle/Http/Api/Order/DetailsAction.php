@@ -39,7 +39,7 @@ class DetailsAction
     }
 
     /**
-     * @Route("/api/orders/{id}")
+     * @Route("/api/orders/{id}", name="api.order.details", requirements={"id"="\d+"})
      * @Method("GET")
      *
      * @ApiDoc(
