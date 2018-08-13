@@ -16,6 +16,9 @@ services:
   http.api.order.index_action:
     class: AppBundle\Http\Api\Order\IndexAction
     arguments: ['@repository.order_repository', '@jms_serializer.serializer']
+  http.api.order.details_action:
+    class: AppBundle\Http\Api\Order\DetailsAction
+    arguments: ['@repository.order_repository', '@jms_serializer.serializer']
 
   # Service - Importer
   service.file_importer.factory:
