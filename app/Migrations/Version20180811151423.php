@@ -17,7 +17,7 @@ class Version20180811151423 extends AbstractMigration
     {
         $this->addSql('
             CREATE TABLE person (
-                id BIGINT NOT NULL AUTO_INCREMENT,
+                id BIGINT NOT NULL,
                 name varchar(255) NOT NULL,
                 CONSTRAINT person_PK PRIMARY KEY (id)
             )

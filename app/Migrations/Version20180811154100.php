@@ -17,7 +17,7 @@ class Version20180811154100 extends AbstractMigration
     {
         $this->addSql('
         CREATE TABLE `order` (
-            id BIGINT NOT NULL AUTO_INCREMENT,
+            id BIGINT NOT NULL,
             person_id BIGINT NOT NULL,
             shipping_address_id BIGINT NOT NULL,
             CONSTRAINT order_PK PRIMARY KEY (id),
