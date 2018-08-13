@@ -16,8 +16,8 @@
         <testsuite name="unit">
             <directory>../src/AppBundle/Tests/Unit</directory>
         </testsuite>
-        <testsuite name="functional">
-            <directory>../src/AppBundle/Tests/Functional</directory>
+        <testsuite name="integration">
+            <directory>../src/AppBundle/Tests/Integration</directory>
         </testsuite>
     </testsuites>
 
