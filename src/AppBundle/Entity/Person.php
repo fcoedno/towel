@@ -37,15 +37,29 @@ class Person
      */
     private $phones;
 
-    public function __construct(int $id, string $name, array $numbers = [])
+    public function __construct()
+    {
+        $this->phones = new ArrayCollection();
+    }
+
+    /**
+     * @param string $name
+     * @return Person
+     */
+    public function setName(string $name): Person
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @param int $id
+     * @return Person
+     */
+    public function setId(int $id): Person
     {
         $this->id = $id;
-        $this->name = $name;
-        $this->phones = new ArrayCollection();
-
-        foreach ($numbers as $number) {
-            $this->addPhone($number);
-        }
+        return $this;
     }
 
     /**

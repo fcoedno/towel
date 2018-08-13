@@ -57,9 +57,10 @@ class OrderImporterTest extends TestCase
             ])
             ->getMock()
         ;
+        $samplePerson = (new Person())->setId(1)->setName('Name 1');
         $personRepository = m::mock(PersonRepository::class)
             ->shouldReceive('find')
-            ->andReturn(new Person(1, 'Name 1'))
+            ->andReturn($samplePerson)
             ->getMock()
         ;
         $this->orderRepository = $this->makeRepository();

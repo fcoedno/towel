@@ -10,9 +10,11 @@ namespace AppBundle\Service\Importer\XmlImporter;
 
 
 use AppBundle\Repository\Contract\PersonRepository;
+use AppBundle\Repository\Exception\PersonNotFoundException;
 use AppBundle\Service\Extractor\Extractor;
 use AppBundle\Service\Importer\XmlImporter;
 use AppBundle\Entity\Person;
+use AppBundle\Service\Extractor\Dto\Person as PersonDto;
 
 class PersonImporter extends XmlImporter
 {
@@ -38,13 +40,37 @@ class PersonImporter extends XmlImporter
     {
         if ('people' === simplexml_load_string($source)->getName()) {
             $people = $this->extractor->extractPeople($source);
-            foreach ($people as $person) {
-                $person = new Person($person->getPersonid(), $person->getPersonname(), $person->getPhones());
-                $this->repository->save($person);
-            }
+            array_walk($people, [$this, 'importPerson']);
             return;
         }
 
         parent::import($source);
+    }
+
+    /**
+     * @param PersonDto $personDto
+     */
+    private function importPerson(PersonDto $personDto)
+    {
+        $person = $this->getPerson($personDto->getPersonid());
+        $person->setName($personDto->getPersonname());
+        $person->getPhones()->clear();
+        foreach ($personDto->getPhones() as $phoneNumber) {
+            $person->addPhone($phoneNumber);
+        }
+        $this->repository->save($person);
+    }
+
+    /**
+     * @param $id
+     * @return Person
+     */
+    private function getPerson($id)
+    {
+        try {
+            return $this->repository->find($id);
+        } catch (PersonNotFoundException $exception) {
+            return (new Person())->setId($id);
+        }
     }
 }

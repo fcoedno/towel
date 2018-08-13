@@ -20,7 +20,7 @@ use \Mockery as m;
 class PersonImporterTest extends TestCase
 {
     /**
-     * @var XmlImporter
+     * @var XmlImporter\PersonImporter
      */
     private $importer;
 

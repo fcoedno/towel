@@ -38,7 +38,7 @@ class DoctrinePersonRepository implements PersonRepository
      */
     public function save(Person $person)
     {
-        $this->em->merge($person);
+        $this->em->persist($person);
         $this->em->flush();
     }
 
