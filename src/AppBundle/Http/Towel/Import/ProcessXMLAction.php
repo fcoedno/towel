@@ -22,10 +22,25 @@ class ProcessXMLAction extends Controller
      */
     public function __invoke(Request $request)
     {
+        try {
+            $files = $request->files->get('xml_files', []);
+            $this->processFiles($files);
+            $this->addFlash('success', 'XML files were proccessed!');
+        } catch (\Throwable $exception) {
+            $this->addFlash('danger', 'It was not possible to process this xml, sorry :(');
+        } finally {
+            return $this->redirectToRoute('import.index');
+        }
+    }
+
+    /**
+     * Process the xml files
+     *
+     * @param array $files
+     */
+    private function processFiles(array $files)
+    {
         $factory = $this->get('service.file_importer.factory');
-        $files = $request->files->get('xml_files', []);
         $factory->make()->import($files);
-        $this->addFlash('success', 'XML files were proccessed!');
-        return $this->redirectToRoute('import.index');
     }
 }
