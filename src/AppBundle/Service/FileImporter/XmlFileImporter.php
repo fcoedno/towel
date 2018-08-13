@@ -8,19 +8,19 @@
 
 namespace AppBundle\Service\FileImporter;
 
+use AppBundle\Service\Importer\Factory\XmlImporterFactory;
 
-use AppBundle\Service\Importer\XmlImporter;
 
 class XmlFileImporter implements FileImporter
 {
     /**
-     * @var XmlImporter
+     * @var XmlImporterFactory
      */
-    private $importer;
+    private $factory;
 
-    public function __construct(XmlImporter $importer)
+    public function __construct(XmlImporterFactory $factory)
     {
-        $this->importer = $importer;
+        $this->factory = $factory;
     }
 
     /**
@@ -39,6 +39,11 @@ class XmlFileImporter implements FileImporter
      */
     private function importXml(\SplFileInfo $file)
     {
-        $this->importer->import(file_get_contents($file->getRealPath()));
+        $this->factory
+            ->make()
+            ->import(
+                file_get_contents($file->getRealPath())
+            )
+        ;
     }
 }

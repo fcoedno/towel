@@ -12,18 +12,18 @@ namespace AppBundle\Service\FileImporter\Factory;
 use AppBundle\Service\FileImporter\Decorator\SortXmlFiles;
 use AppBundle\Service\FileImporter\FileImporter;
 use AppBundle\Service\FileImporter\XmlFileImporter;
-use AppBundle\Service\Importer\XmlImporter;
+use AppBundle\Service\Importer\Factory\XmlImporterFactory;
 
 class XmlFileImporterFactory implements FileImporterFactory
 {
     /**
-     * @var XmlImporter
+     * @var XmlImporterFactory
      */
-    private $importer;
+    private $factory;
 
-    public function __construct(XmlImporter $importer)
+    public function __construct(XmlImporterFactory $factory)
     {
-        $this->importer = $importer;
+        $this->factory = $factory;
     }
 
     /**
@@ -32,7 +32,7 @@ class XmlFileImporterFactory implements FileImporterFactory
     public function make(): FileImporter
     {
         return new SortXmlFiles(
-            new XmlFileImporter($this->importer)
+            new XmlFileImporter($this->factory)
         );
     }
 }

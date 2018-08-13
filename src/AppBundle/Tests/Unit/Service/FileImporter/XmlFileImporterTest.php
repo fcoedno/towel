@@ -10,6 +10,7 @@ namespace AppBundle\Tests\Unit\Service\FileImporter;
 
 
 use AppBundle\Service\FileImporter\XmlFileImporter;
+use AppBundle\Service\Importer\Factory\XmlImporterFactory;
 use AppBundle\Service\Importer\XmlImporter;
 use PHPUnit\Framework\TestCase;
 use \Mockery as m;
@@ -34,8 +35,14 @@ class XmlFileImporterTest extends TestCase
             ->getMock()
         ;
 
+        $factory = m::mock(XmlImporterFactory::class)
+            ->shouldReceive('make')
+            ->andReturn($importer)
+            ->getMock()
+        ;
+
         $file = new \SplFileInfo($fileName);
-        $fileImporter = new XmlFileImporter($importer);
+        $fileImporter = new XmlFileImporter($factory);
         $fileImporter->import($file);
         $this->assertTrue(true);
     }
