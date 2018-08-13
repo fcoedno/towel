@@ -12,6 +12,11 @@ services:
     class: AppBundle\Repository\DoctrineOrderRepository
     arguments: ['@doctrine.orm.entity_manager']
 
+  # Controllers
+  http.api.order.index_action:
+    class: AppBundle\Http\Api\Order\IndexAction
+    arguments: ['@repository.order_repository', '@jms_serializer.serializer']
+
   # Service - Importer
   service.file_importer.factory:
     class: AppBundle\Service\FileImporter\Factory\XmlFileImporterFactory
