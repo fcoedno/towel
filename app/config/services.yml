@@ -27,6 +27,9 @@ services:
     arguments: ['@repository.person_repository', '@jms_serializer.serializer']
 
   # Service - Importer
+  service.file_importer:
+    class: AppBundle\Service\FileImporter\FileImporter
+    factory: ['@service.file_importer.factory', make]
   service.file_importer.factory:
     class: AppBundle\Service\FileImporter\Factory\XmlFileImporterFactory
     autowire: true

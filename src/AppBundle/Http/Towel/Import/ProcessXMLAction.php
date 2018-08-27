@@ -40,7 +40,7 @@ class ProcessXMLAction extends Controller
      */
     private function processFiles(array $files)
     {
-        $factory = $this->get('service.file_importer.factory');
-        $factory->make()->import($files);
+        $fileImporter = $this->get('service.file_importer');
+        $fileImporter->import($files);
     }
 }
