@@ -39,11 +39,9 @@ class XmlFileImporter implements FileImporter
      */
     private function importXml(\SplFileInfo $file)
     {
-        $this->factory
-            ->make()
-            ->import(
-                file_get_contents($file->getRealPath())
-            )
-        ;
+        $xmlImporter = $this->factory->make();
+        $xmlImporter->import(
+            file_get_contents($file->getRealPath())
+        );
     }
 }
