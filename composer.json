@@ -11,6 +11,8 @@
         "symfony/yaml": "4.1.*"
     },
     "require-dev": {
+        "phpstan/phpstan": "^0.10.5",
+        "squizlabs/php_codesniffer": "3.*",
         "symfony/dotenv": "4.1.*"
     },
     "config": {
