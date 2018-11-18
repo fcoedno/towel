@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Infra\Framework;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -104,7 +104,7 @@ class Kernel extends BaseKernel
 
             // when using symfony/dotenv v4.2 or higher, this call and the related methods
             // below should be replaced by a call to the new Dotenv::loadEnv() method
-            self::loadEnv(new Dotenv(), \dirname(__DIR__).'/.env');
+            self::loadEnv(new Dotenv(), \dirname(__DIR__ . '/../../../composer.json').'/.env');
         }
 
         $_SERVER['APP_ENV'] = $_ENV['APP_ENV'] = isset($_SERVER['APP_ENV']) ? $_SERVER['APP_ENV'] : 'dev';
