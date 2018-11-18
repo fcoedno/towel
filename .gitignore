@@ -1,13 +1,17 @@
-/web/bundles/
-/app/bootstrap.php.cache
-/app/cache/*
-/app/config/parameters.yml
-/app/logs/*
-!app/cache/.gitkeep
-!app/logs/.gitkeep
-/app/phpunit.xml
-/build/
+###> symfony/framework-bundle ###
+/.env
+/public/bundles/
+/var/
 /vendor/
-/bin/
-/composer.phar
+###< symfony/framework-bundle ###
+
+###> towel ###
 /.idea/
+/docker-compose.yaml
+/phpcs.xml
+###< towel ###
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###
