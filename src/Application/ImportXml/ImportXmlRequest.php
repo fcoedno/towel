@@ -15,4 +15,9 @@ class ImportXmlRequest
     {
         $this->xmlPath = $xmlPath;
     }
+
+    public function getXmlPath(): string
+    {
+        return $this->xmlPath;
+    }
 }

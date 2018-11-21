@@ -24,10 +24,16 @@ class ImportXmlUseCase
 
     public function import(ImportXmlRequest $request)
     {
+        $xml = simplexml_load_file($request->getXmlPath());
+        $personXml = $xml->person;
+        $phones = [];
+        foreach ($personXml->phones->phone as $phone) {
+            $phones[] = new Phone((string) $phone);
+        }
         $person = new Person(
-            new PersonId(1),
-            new PersonName('Person 1'),
-            [new Phone('2345678'), new Phone('1234567')]
+            new PersonId((int) $personXml->personid),
+            new PersonName((string) $personXml->personname),
+            $phones
         );
         $this->personRepository->add($person);
     }

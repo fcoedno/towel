@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Acceptance;
 
-use PHPUnit\Framework\TestCase;
+use App\Tests\TestCase;
 use Towel\Application\ImportXml\ImportXmlRequest;
 use Towel\Application\ImportXml\ImportXmlUseCase;
 use Towel\Domain\Model\Person\Person;
@@ -22,7 +22,7 @@ class ImportXmlUseCaseTest extends TestCase
     {
         $repostiroy = new InMemoryPersonRepository();
         $useCase = new ImportXmlUseCase($repostiroy);
-        $request = new ImportXmlRequest('');
+        $request = new ImportXmlRequest($this->getResource('people1.xml'));
         $useCase->import($request);
         $person = $repostiroy->find(new PersonId(1));
         $expectedPerson = new Person(
