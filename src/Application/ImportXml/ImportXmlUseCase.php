@@ -25,14 +25,25 @@ class ImportXmlUseCase
     public function import(ImportXmlRequest $request)
     {
         $xml = simplexml_load_file($request->getXmlPath());
-        $personXml = $xml->person;
+        $peopleXml = $xml->person;
+        foreach ($peopleXml as $personXml) {
+            $this->importPerson($personXml);
+        }
+    }
+
+    /**
+     * @param $personXml
+     */
+    private function importPerson($personXml): void
+    {
         $phones = [];
-        foreach ($personXml->phones->phone as $phone) {
-            $phones[] = new Phone((string) $phone);
+        $phonesXml = $personXml->phones->phone ?? [];
+        foreach ($phonesXml as $phone) {
+            $phones[] = new Phone((string)$phone);
         }
         $person = new Person(
-            new PersonId((int) $personXml->personid),
-            new PersonName((string) $personXml->personname),
+            new PersonId((int)$personXml->personid),
+            new PersonName((string)$personXml->personname),
             $phones
         );
         $this->personRepository->add($person);
